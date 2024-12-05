@@ -24,7 +24,7 @@
         <tbody>
             {% for order in items %}
             <tr>
-                <td><a href="{{ url_for('order.edit', order_id=order.id) }}">編集</a></td>
+                <td><a href="{{ url_for('zodiac.edit', zodiac_birthday=zodiac.birthday) }}">編集</a></td>
                 <td>{{ order.birthday }}</td>
                 <td>{{ order.zodiac.signs }}</td>
             </tr>

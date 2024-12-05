@@ -13,9 +13,9 @@
         <li>星座情報編集</li>
     </ul>
 
-    <form action="{{ url_for('zodiac.edit', user_id=user.id) }}" method="post">
-        <label>生年月日: <input type="number" name="birthday" value="{{ user.name }}" required></label><br>
-        <label>星座: <input type="text" name="zodiac" value="{{ user.age }}" required></label><br>
+    <form action="{{ url_for('zodiac.edit', zodiac_birthday=zodiac.birthday) }}" method="post">
+        <label>生年月日: <input type="text" name="birthday" value="{{ zodiac.birthday }}" required></label><br>
+        <label>星座: <input type="text" name="zodiac_sings" value="{{ zodiac.zodiac_sings }}" required></label><br>
         <button type="submit">保存</button>
     </form>
 </body>
