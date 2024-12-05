@@ -1,7 +1,7 @@
 from peewee import Model, CharField, IntegerField
 from .db import db
 
-class Zodiac(Model):
+class User(Model):
     birthday = CharField()
     zodiac_signs = CharField()
 
