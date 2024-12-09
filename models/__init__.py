@@ -1,14 +1,12 @@
 from peewee import SqliteDatabase
 from .db import db
-from .user import User
-from .product import Product
-from .order import Order
+from .name import Name
+from .zodiac import Zodiac
 
 # モデルのリストを定義しておくと、後でまとめて登録しやすくなります
 MODELS = [
-    User,
-    Product,
-    Order,
+    Name,
+    Zodiac
 ]
 
 # データベースの初期化関数

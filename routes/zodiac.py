@@ -26,7 +26,7 @@ def add():
     return render_template('zodiac_add.html')
 
 
-@zodiac_bp.route('/edit/<char:zodiac_birthday>', methods=['GET', 'POST'])
+@zodiac_bp.route('/edit/<string:zodiac_birthday>', methods=['GET', 'POST'])
 def edit(zodiac_birthday):
     zodiac = zodiac.get_or_none(zodiac.birthday == zodiac_birthday)
     if not zodiac:
@@ -36,6 +36,6 @@ def edit(zodiac_birthday):
         zodiac.birthday = request.form['birthday']
         zodiac.zodiac_signs = request.form['zodiac_signs']
         zodiac.save()
-        return redirect(url_for('user.list'))
+        return redirect(url_for('zodiac.list'))
 
-    return render_template('user_edit.html', zodiac=zodiac)
+    return render_template('zodiac_edit.html', zodiac=zodiac)
