@@ -22,12 +22,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for order in items %}
+            {% for name in items %}
             <tr>
                 <td><a href="{{ url_for('name.edit', name_id=name.id) }}">編集</a></td>
-                <td>{{ order.user.name }}</td>
-                <td>{{ order.product.name }}</td>
-                <td>{{ order.order_date }}</td>
+                <td>{{ name.name }}</td>
+                <td>{{ name.phone }}</td>
             </tr>
             {% endfor %}
         </tbody>
