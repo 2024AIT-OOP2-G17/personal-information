@@ -15,7 +15,7 @@
 
     <form action="{{ url_for('name.edit', name_id=name.id) }}" method="post">
         <label>名前: <input type="text" name="name" value="{{ name.name }}" required></label><br>
-        <label>電話番号: <input type="text" name="phone" value="{{ name.phone }}" required></label><br>
+        <label>電話番号: <input type="number" name="phone" value="{{ name.phone }}" required></label><br>
         <button type="submit">保存</button>
     </form>
 </body>

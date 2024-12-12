@@ -1,15 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import zodiac
+from models import Zodiac
 
 # Blueprintの作成
-zodiac_bp = Blueprint('zodiac', __name__, url_prefix='/zodiac')
+zodiac_bp = Blueprint('zodiac', __name__, url_prefix='/zodiacs')
 
 
 @zodiac_bp.route('/')
 def list():
     
     # データ取得
-    zodiacs = zodiac.select()
+    zodiacs = Zodiac.select()
 
     return render_template('zodiac_list.html', title='星座一覧', items=zodiacs)
 
@@ -20,7 +20,7 @@ def add():
     if request.method == 'POST':
         birthday = request.form['birthday']
         zodiac_signs = request.form['zodiac_signs']
-        zodiac.create(birthday=birthday, zodiac_signs=zodiac_signs)
+        Zodiac.create(birthday=birthday, zodiac_signs=zodiac_signs)
         return redirect(url_for('zodiac.list'))
     
     return render_template('zodiac_add.html')
@@ -28,7 +28,7 @@ def add():
 
 @zodiac_bp.route('/edit/<string:zodiac_birthday>', methods=['GET', 'POST'])
 def edit(zodiac_birthday):
-    zodiac = zodiac.get_or_none(zodiac.birthday == zodiac_birthday)
+    zodiac = Zodiac.get_or_none(Zodiac.birthday == zodiac_birthday)
     if not zodiac:
         return redirect(url_for('zodiac.list'))
 

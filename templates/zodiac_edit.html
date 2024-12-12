@@ -15,7 +15,7 @@
 
     <form action="{{ url_for('zodiac.edit', zodiac_birthday=zodiac.birthday) }}" method="post">
         <label>生年月日: <input type="text" name="birthday" value="{{ zodiac.birthday }}" required></label><br>
-        <label>星座: <input type="text" name="zodiac_sings" value="{{ zodiac.zodiac_sings }}" required></label><br>
+        <label>星座: <input type="text" name="zodiac_signs" value="{{ zodiac.zodiac_signs }}" required></label><br>
         <button type="submit">保存</button>
     </form>
 </body>

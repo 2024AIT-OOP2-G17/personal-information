@@ -9,10 +9,10 @@
     <h1>{{ title }}</h1>
     <ul class="breadcrumb">
         <li><a href="{{ url_for('index') }}">HOME</a></li>
-        <li><a href="{{ url_for('order.list') }}">星座一覧</a></li>
+        <li><a href="{{ url_for('zodiac.list') }}">星座一覧</a></li>
     </ul>
 
-    <a href="{{ url_for('order.add') }}">星座情報追加</a>
+    <a href="{{ url_for('zodiac.add') }}">星座情報追加</a>
     <table>
         <thead>
             <tr>
@@ -22,11 +22,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for order in items %}
+            {% for zodiac in items %}
             <tr>
                 <td><a href="{{ url_for('zodiac.edit', zodiac_birthday=zodiac.birthday) }}">編集</a></td>
-                <td>{{ order.birthday }}</td>
-                <td>{{ order.zodiac.signs }}</td>
+                <td>{{ zodiac.birthday }}</td>
+                <td>{{ zodiac.zodiac_signs }}</td>
             </tr>
             {% endfor %}
         </tbody>
