@@ -1,8 +1,8 @@
-from peewee import Model, CharField
+from peewee import Model, CharField,IntegerField
 from .db import db
 
 class Zodiac(Model):
-    birthday = CharField()
+    birthday = IntegerField()
     zodiac_signs = CharField()
 
     class Meta:
