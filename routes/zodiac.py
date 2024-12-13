@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models import Zodiac
+from collections import defaultdict
 
 # Blueprintの作成
 zodiac_bp = Blueprint('zodiac', __name__, url_prefix='/zodiacs')
@@ -13,7 +14,14 @@ def list():
 
     return render_template('zodiac_list.html', title='星座一覧', items=zodiacs)
 
+def count_birthdays_by_month():
+    birthday_counts = defaultdict(int)
+    for zodiac in Zodiac.select():
+        birthday = zodiac.birthday
+        month = int(str(birthday)[4:6])  # 生年月日から月を抽出
+        birthday_counts[month] += 1
 
+    return birthday_counts
 @zodiac_bp.route('/add', methods=['GET', 'POST'])
 def add():
     
@@ -39,3 +47,4 @@ def edit(zodiac_birthday):
         return redirect(url_for('zodiac.list'))
 
     return render_template('zodiac_edit.html', zodiac=zodiac)
+
