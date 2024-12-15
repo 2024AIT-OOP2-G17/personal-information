@@ -11,5 +11,45 @@
       <li><a href="{{ url_for('name.list') }}">名前リスト</a></li>
       <li><a href="{{ url_for('zodiac.list') }}">生年月日リスト</a></li>
     </ul>
+    <canvas id="prefecture"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script type="text/javascript">
+      // Pythonから渡されたデータをJavaScriptで使う
+      var ctx = document.getElementById("prefecture");
+        var prefecture = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: [
+              {% for area in prefectures %}
+              "{{area.area}}",
+              {% endfor %}
+            ],
+            datasets: [{
+              backgroundColor: [
+                  "#6B8BFF",
+                  "#6BE6FF",
+                  "#6BFF78",
+                  "#FFEF41",
+                  "#FF8941",
+                  "#FF7BC5",
+                  "#C488EC",
+                  "#959595",
+              ],
+              data: [
+                {% for area in prefectures %}
+                {{area.num}},
+                {% endfor %}
+              ]
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+              text: '地域 割合'
+            }
+          }
+        }
+      );
+    </script>
 </body>
 </html>
