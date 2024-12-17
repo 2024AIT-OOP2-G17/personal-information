@@ -48,3 +48,12 @@ def edit(zodiac_birthday):
 
     return render_template('zodiac_edit.html', zodiac=zodiac)
 
+
+@zodiac_bp.route('/graph/month')
+def graph_month():
+    counts = count_birthdays_by_month()
+    labels = [i for i in range(1, 13)]  # または list(range(1, 13))
+    data = [counts[month] for month in labels]
+    return render_template('zodiac_graph_month.html',
+                         labels=labels,
+                         data=data)
