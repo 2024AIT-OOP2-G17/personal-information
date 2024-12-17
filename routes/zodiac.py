@@ -105,3 +105,4 @@ def count_zodiacs():
             zodiac_counts[12] += 1
 
     return zodiac_counts
+  
