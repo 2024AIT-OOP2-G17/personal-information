@@ -35,7 +35,7 @@ def edit(name_id):
         name.name = request.form['name']
         name.phone = request.form['phone']
         name.save()
-        # area(phone_ago, -1)
+        area(phone_ago, -1)
         area(name.phone, 1)
         return redirect(url_for('name.list'))
 
