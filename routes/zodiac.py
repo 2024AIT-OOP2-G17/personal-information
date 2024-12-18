@@ -48,3 +48,61 @@ def edit(zodiac_birthday):
 
     return render_template('zodiac_edit.html', zodiac=zodiac)
 
+
+@zodiac_bp.route('/graph/month')
+def graph_month():
+    counts = count_birthdays_by_month()
+    labels = [i for i in range(1, 13)]  # または list(range(1, 13))
+    data = [counts[month] for month in labels]
+    zodiac_cntdata = count_zodiacs()
+    return render_template('zodiac_graph_month.html',
+                         labels=labels,
+                         data=data,
+                         zodiac_cntdata=zodiac_cntdata)
+
+
+def count_zodiacs():
+    zodiac_counts = [0] * 13
+    for zodiac in Zodiac.select():
+        judge_zodiac = zodiac.zodiac_signs
+        if judge_zodiac == '牡羊座' or judge_zodiac == 'おひつじ座':
+            zodiac_counts[0] += 1
+
+        elif judge_zodiac == '牡牛座' or judge_zodiac == 'おうし座':
+            zodiac_counts[1] += 1
+
+        elif judge_zodiac == '双子座' or judge_zodiac == 'ふたご座':
+            zodiac_counts[2] += 1
+
+        elif judge_zodiac == '蟹座' or judge_zodiac == 'かに座':
+            zodiac_counts[3] += 1
+
+        elif judge_zodiac == '獅子座' or judge_zodiac == 'しし座':
+            zodiac_counts[4] += 1
+
+        elif judge_zodiac == '乙女座' or judge_zodiac == 'おとめ座':
+            zodiac_counts[5] += 1
+
+        elif judge_zodiac == '天秤座' or judge_zodiac == 'てんびん座':
+            zodiac_counts[6] += 1
+
+        elif judge_zodiac == '蠍座' or judge_zodiac == 'さそり座':
+            zodiac_counts[7] += 1
+
+        elif judge_zodiac == '射手座' or judge_zodiac == 'いて座':
+            zodiac_counts[8] += 1
+
+        elif judge_zodiac == '山羊座' or judge_zodiac == 'やぎ座':
+            zodiac_counts[9] += 1
+
+        elif judge_zodiac == '水瓶座' or judge_zodiac == 'みずがめ座':
+            zodiac_counts[10] += 1
+
+        elif judge_zodiac == '魚座' or judge_zodiac == 'うお座':
+            zodiac_counts[11] += 1
+
+        else:
+            zodiac_counts[12] += 1
+
+    return zodiac_counts
+  
