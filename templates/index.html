@@ -12,6 +12,18 @@
       <li><a href="{{ url_for('zodiac.list') }}">生年月日リスト</a></li>
     </ul>
     <canvas id="prefecture"></canvas>
+    <div class="container">
+        <h2>月別誕生日統計</h2>
+        {% if data %}
+            <div class="chart-container">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        {% else %}
+            <p>データが存在しません。</p>
+        {% endif %}
+    </div>
+    <h2>星座別人数統計</h2>
+    <canvas id="zodiacChart"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
     <script type="text/javascript">
       // Pythonから渡されたデータをJavaScriptで使う
@@ -50,6 +62,76 @@
           }
         }
       );
+
+      try {
+    const ctx = document.getElementById('monthlyChart');
+    const graphData = JSON.parse('{{ data | tojson | safe }}');
+    const graphLabels = JSON.parse('{{ labels | tojson | safe }}');
+
+    if (graphData && graphLabels) {
+        new Chart(ctx, {
+            type: 'bar',  // グラフの種類を指定
+            data: {
+                labels: graphLabels.map(month => `${month}月`),
+                datasets: [{
+                    label: '誕生日の数',
+                    data: graphData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    }
+} catch (error) {
+    console.error('グラフの描画に失敗しました:', error);
+}
+
+  var ctx = document.getElementById("zodiacChart");
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['牡羊座', '牡牛座', '双子座', '蟹座', '獅子座', '乙女座', '天秤座', '蠍座', '射手座', '山羊座', '水瓶座', '魚座', '分類不可'],
+      datasets: [{
+        label: '人数',
+        data: {{zodiac_cntdata}},
+        backgroundColor: [
+          'rgba(235, 97, 0, 0.2)',
+          'rgba(252, 200, 0, 0.2)',
+          'rgba(207, 219, 0, 0.2)',
+          'rgba(34, 172, 56, 0.2)',
+          'rgba(0, 155, 107, 0.2)',
+          'rgba(0, 160, 193, 0.2)',
+          'rgba(0, 134, 209, 0.2)',
+          'rgba(0, 71, 157, 0.2)',
+          'rgba(96, 25, 134, 0.2)',
+          'rgba(190, 0, 129, 0.2)',
+          'rgba(229, 0, 106, 0.2)',
+          'rgba(150, 150, 150, 0.2)'
+        ]
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            stepSize: 1
+          }
+        }
+      }
+    }
+  });
     </script>
 </body>
 </html>
